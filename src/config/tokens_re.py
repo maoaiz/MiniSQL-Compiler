@@ -9,7 +9,9 @@ t_DIVIDE = r'/'
 t_EQUAL  = r'='
 t_DISTINT = r'!'
 t_LESS   = r'<'
+t_LESSEQUAL = r'<='
 t_GREATER = r'>'
+t_GREATEREQUAL = r'>='
 t_SEMICOLON = ';'
 t_COMMA  = r','
 t_LPAREN = r'\('
@@ -22,6 +24,12 @@ t_COLON   = r':'
 t_AMPERSANT = r'\&'
 t_HASHTAG = r'\#'
 t_DOT = r'\.'
+t_DEQUAL = r'!='
+t_ISEQUAL = r'=='    
+t_MINUSMINUS = r'--'
+t_PLUSPLUS = r'\+\+'
+t_QUOTE = r'\'|\"'
+
 
 
 def t_NL(t):
@@ -30,9 +38,21 @@ def t_NL(t):
 
 
 def t_error(t):
-    print "Illegal character '%s'" % t.value[0]
+    print "Lexical error: Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
 
+
+def t_COMMENT(t):
+    r'--\(.*\)'
+    # print "'%s'" % t.value
+    t.lexer.lineno += t.value.count('\n')
+    # return t
+
+def t_COMMENT_OFFICIAL(t):
+    r'(/\*(.|\n)*?\*/)'
+    print t.value
+    t.lexer.lineno += t.value.count('\n')
+    # return t
 
 def t_comments(t):
     r'/\*(.|\n)*?\*/'
@@ -42,45 +62,16 @@ def t_comments_C99(t):
     r'//(.)*?\n'
     t.lexer.lineno += 1
 
-def t_comments0(t):
-    r'--(.)*?\n'
-    t.lexer.lineno += 1
-
 
 def t_comments1(t):
     r'\#(.)*?\n'
     t.lexer.lineno += 1
-    
+
 
 def t_NUMBER(t):
     r'[+|-]?\d+(\.\d+)?(E[+|-]?\d+)?'
     t.value = float(t.value)
     return t
-
-
-def t_LESSEQUAL(t):
-	r'<='
-	return t
-
-def t_GREATEREQUAL(t):
-	r'>='
-	return t
-
-def t_DEQUAL(t):
-	r'!='
-	return t
-
-def t_ISEQUAL(t):
-	r'=='
-	return t
-    
-def t_MINUSMINUS(t):
-	r'--'
-	return t
-
-def t_PLUSPLUS(t):
-	r'\+\+'
-	return t
 
 def t_ID(t):
     r'[a-zA-Z_]\w*'
