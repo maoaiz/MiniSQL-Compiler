@@ -76,7 +76,7 @@ tokens = (
     'VALUES','VARCHAR',  'VIEW',
 
     # W
-    'WHEN','WHERE','WHILE','WITH', 'WRITE',
+    'WHEN','WHERE','WHILE','WITH', 'WRITE', 'WHITESPACE',
 
     # X
    

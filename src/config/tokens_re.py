@@ -1,5 +1,4 @@
 from .reserved_words import reserved_words as reserved
-t_ignore = ' \t\r'# Regular expressions rules for a simple tokens 
 t_PLUS   = r'\+'
 t_MINUS  = r'-'
 t_TIMES  = r'\*'
@@ -20,13 +19,14 @@ t_LBLOCK   = r'{'
 t_RBLOCK   = r'}'
 t_COLON   = r':'
 t_AMPERSANT = r'\&'
-t_HASHTAG = r'\#'
+# t_HASHTAG = r'\#'
 t_DOT = r'\.'
 t_DEQUAL = r'!='
 t_ISEQUAL = r'=='    
-# t_MINUSMINUS = r'--'
+t_MINUSMINUS = r'--'
 t_PLUSPLUS = r'\+\+'
 t_QUOTE = r'\'|\"'
+t_ignore = '\t\r'
 
 def t_NL(t):
     r'\n+'
@@ -36,24 +36,17 @@ def t_error(t):
     print "Lexical error: Illegal character '%s'" % t.value[0]
     t.lexer.skip(1)
 
-def t_OPERATION(t):
-    #r'--[\w]*?^(\s)^(\n)$'
-    # r'(.)*?[\n\s]'
-    r'--[\w]*?\S$'
-    print "se econtro un decremento"
-    return t
+def t_WHITESPACE(t):
+    r'\ '
 
 def t_COMMENT(t):
-    #r'--(\s?.*(\s).*)^(\n)'
-    #r'--([\s]?.*(\s).*)^(\n)'
-    r'--(.)*?(\s)(.)*?\n'
-    print "se econtro un comentario --: '%s'" % t.value#[:-2]
+    r'--(.)*?(\ )(.)*\n'
+    print "Se ignoro el comentario: '%s'" % t.value[:-2]
     t.lexer.lineno += 1
-   # return t
 
 def t_COMMENT_OFFICIAL(t):
     r'/\*(.|\n)*?\*/'
-    print "comment: '%s'" %t.value
+    print "Se ignoro el comentario: '%s'" %t.value
     t.lexer.lineno += t.value.count('\n')
     # return t
 

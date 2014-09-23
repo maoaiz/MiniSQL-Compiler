@@ -33,9 +33,9 @@ class SCMCompiler:
             try:
                 t = lexer.token()
                 if not t:
-                    self.printer("\nFinished. No more tokens")
+                    self.printer("\n\tFinished. No more tokens")
                     break
-                self.printer("\tType: {}\ttoken: {}\tline {}\tpos {}".format(t.type, t.value, t.lineno, t.lexpos))
+                self.printer("\tType: {}\t\ttoken: {}\tline {}\tpos {}".format(t.type, t.value, t.lineno, t.lexpos))
                 # self.printer(t)
             except Exception, e:
                 print e
