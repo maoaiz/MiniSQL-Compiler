@@ -4,7 +4,7 @@ t_MINUS  = r'-'
 t_TIMES  = r'\*'
 t_DIVIDE = r'/'
 t_EQUAL  = r'='
-t_DISTINT = r'!'
+t_DISTINCT = r'!'
 t_LESS   = r'<'
 t_LESSEQUAL = r'<='
 t_GREATER = r'>'
@@ -46,7 +46,7 @@ def t_COMMENT(t):
 
 def t_COMMENT_OFFICIAL(t):
     r'/\*(.|\n)*?\*/'
-    print "Se ignoro el comentario: '%s'" %t.value
+    # print "Se ignoro el comentario: '%s'" %t.value
     t.lexer.lineno += t.value.count('\n')
     # return t
 
@@ -68,4 +68,8 @@ def t_ID(t):
     # r'\$[^aeiou][.]?\#(\w)*'
     t.type = reserved.get(t.value,'ID')
     t.value= t.value.lower()
+    return t
+
+def t_NAME(t):
+    r'\w+(_\d\w)*'
     return t
