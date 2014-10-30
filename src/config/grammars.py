@@ -20,7 +20,7 @@ def p_schema(p):
   pass
 
 def p_user(p):
-  'user : NAME'
+  'user : ID'
   pass
 
 def p_opt_schema_element_list_1(p):
@@ -49,15 +49,7 @@ def p_base_table_def(p):
   pass
 
 def p_constraint_def(p):
-  'constraint_def : CONSTRAINT NAME table_constraint_def'
-  pass
-
-def p_table_1(p):
-  'table : NAME'
-  pass
-
-def p_table_2(p):
-  'table : NAME DOT NAME'
+  'constraint_def : CONSTRAINT ID table_constraint_def'
   pass
 
 def p_base_table_element_commalist_1(p):
@@ -74,7 +66,7 @@ def p_base_table_element_1(p):
 def p_literal_1(p):
   '''literal : literal NAME2 
       | NAME2
-      | NAME'''
+      | ID'''
   pass
 
 def p_literal_2(p):
@@ -140,7 +132,7 @@ def p_column_commalist_1(p):
   pass
 
 def p_column(p):
-  'column : NAME'
+  'column : ID'
   pass
 
 #vista de tablas
@@ -241,13 +233,13 @@ def p_opt_asc_desc_2(p):
   pass 
 
 def p_cursor(p):
-  'cursor : NAME'
+  'cursor : ID'
   pass
 
 def p_column_ref_1(p):
-  '''column_ref : NAME
-      | NAME DOT NAME
-      | NAME DOT NAME DOT NAME'''
+  '''column_ref : ID
+      | ID DOT ID
+      | ID DOT ID DOT ID'''
   pass 
 
 # Manipulacion de sentencias 
@@ -261,9 +253,11 @@ def p_manipulative_statement_1(p):
           | open_statement
           | rollback_statement
           | select_statement
-          | update_statement_positioned
           | select_statement_1
+          | select_statement_2
           | select_statement_3
+          | update_statement_1
+          | update_statement_positioned
           | update_statement_searched
           | drop_table'''
   pass 
@@ -320,7 +314,7 @@ def p_parameter_ref_1(p):
   pass 
 
 def p_parameter(p):
-  'parameter : NAME'
+  'parameter : ID'
   pass
 
 #sentencia insert
@@ -373,9 +367,9 @@ def p_select_statement_1(p):
   'select_statement_1 : SELECT TIMES FROM table WHERE assignment_commalist assign_cond' 
   pass
 
-# def p_select_statement_2(p):
-#   'select_statement_2 : SELECT TIMES FROM table SEMICOLON' 
-#   pass
+def p_select_statement_2(p):
+  'select_statement_2 : SELECT TIMES FROM table SEMICOLON' 
+  pass
 
 def p_select_statement_3(p):
   'select_statement_3 : SELECT TIMES FROM table PLUSPLUS' 
@@ -388,7 +382,8 @@ def p_assign_cond(p):
       | cond  assignment_commalist'''
   pass
 def p_update_statement_positioned(p):
-  'update_statement_positioned : UPDATE table SET assignment_commalist WHERE assignment_commalist assign_cond'
+  '''update_statement_positioned : UPDATE table SET assignment_commalist WHERE assignment_commalist assign_cond SEMICOLON
+      | UPDATE table SET assignment_commalist WHERE assignment_commalist assign_cond'''
   pass
 def p_cond(p):
   '''cond : cond OR
@@ -412,8 +407,15 @@ def p_assignment_1(p):
   pass
 
 def p_update_statement_searched(p):
-  'update_statement_searched : UPDATE table SET assignment_commalist opt_where_clause'
+  '''update_statement_searched : UPDATE table SET assignment_commalist opt_where_clause SEMICOLON
+      | UPDATE table SET assignment_commalist opt_where_clause'''
   pass
+
+def p_update_statement_1(p):
+  '''update_statement_1 : UPDATE table SET assignment_commalist WHERE search_condition SEMICOLON
+      | UPDATE SEMICOLON'''
+  pass
+
 
 #esclares
 def p_scalar_exp_1(p):
@@ -499,7 +501,7 @@ def p_table_ref_1(p):
   pass
 
 def p_range_variable(p):
-  'range_variable : NAME'
+  'range_variable : ID'
   pass
 
 def p_opt_group_by_clause_1(p):
@@ -604,8 +606,13 @@ def p_subquery(p):
 def p_error(p):
     if 1:
         if p is not None:
-            print ("\nERROR SINTACTICO EN LA LINEA " + str(p.lineno - 10) + " POS: "+ str(p.lexer.lexpos) + " NO SE ESPERABA EL TOKEN  '" + str(p.value)) + "'"
+            print ("\nERROR SINTACTICO EN LA LINEA " + str(p.lineno) + " NO SE ESPERABA EL TOKEN  '" + str(p.value)) + "'"
         else:
-            print ("\nERROR SINTACTICO EN LA LINEA: " + str(Lexical.lexer.lineno))
+            from src.SCM import Lexical, Parser, yacc
+            while 1:
+              tok = yacc.token()             # Get the next token
+              if not tok or tok.type == 'RBRACE': break
+            yacc.restart()
+            print ("\nERROR SINTACTICO EN LA LINEA: " + str(Lexical.lineno))
     else:
         raise Exception('syntax', 'error')

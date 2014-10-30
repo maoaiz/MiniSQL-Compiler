@@ -83,7 +83,7 @@ reserved_words = {
     # P
     'PRECISION':'PRECISION','precision':'PRECISION','PRIMARY':'PRIMARY','primary':'PRIMARY','PROCEDURE':'PROCEDURE',
     'procedure':'PROCEDURE','PURGE':'PURGE','purge':'PURGE', 'PRIVILEGES':'PRIVILEGES','privileges':'PRIVILEGES', 
-    'PUBLIC':'PUBLIC','public':'PUBLIC',
+    'PUBLIC':'PUBLIC','public':'PUBLIC','PRINT': 'PRINT','print': 'PRINT',
 
     # R
     'READ':'READ','read':'READ','READS':'READS','reads':'READS','REAL':'REAL','real':'REAL','REFERENCES':'REFERENCES','references':'REFERENCES',

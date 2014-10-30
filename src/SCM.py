@@ -3,6 +3,7 @@ from libs.ply import lex
 from libs.ply import yacc
 
 Lexical = None
+Parser = None
 from config.reserved_words import reserved_words as reserved
 from config.tokens_final import *
 # from config.tokens_simple import *
@@ -13,32 +14,35 @@ from config.grammars import *
 class SCMCompiler:
     data = None
     lexer = None
+    parser = None
 
     def __init__(self, src=None, print_tokens=False):
         self.src = src
         self.print_tokens = print_tokens
 
     def compile(self):
-        if not self.lexer():
+        if not self.eval_lexer():
             print "\n[ERROR]Lexical analysis with finished with ERROR"
         else:
             print "\nLexical analysis finished"
-        if not self.parser():
+        if not self.eval_parser():
             print "Esto se jodio"
         else:
             print "\nSintax analysis finished"
 
-    def parser(self):
+    def eval_parser(self):
         if self.data:
             try:
-                parser = yacc.yacc()
-                parser.parse(self.data, tracking=True)
+                self.parser = yacc.yacc()
+                global Parser
+                Parser = self.parser
+                self.parser.parse(self.data, tracking=True)
                 return True
             except Exception, e:
                 print "[ERROR]", e
                 return False
 
-    def lexer(self):
+    def eval_lexer(self):
         if not self.src:
             self.printer("No code file")
             return False

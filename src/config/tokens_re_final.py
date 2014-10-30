@@ -41,7 +41,7 @@ def t_WHITESPACE(t):
 
 def t_COMMENT(t):
     r'--(.)*?(\ )(.)*\n'
-    # print "Se ignoro el comentario: '%s'" % t.value[:-2]
+    print "Se ignoro el comentario: '%s'" % t.value[:-2]
     t.lexer.lineno += 1
 
 def t_COMMENT_OFFICIAL(t):
@@ -70,6 +70,6 @@ def t_ID(t):
     t.value= t.value.lower()
     return t
 
-def t_NAME(t):
-    r'\w+(_\d\w)*'
-    return t
+# def t_NAME(t):
+#     r'\w+(_\d\w)*'
+#     return t
