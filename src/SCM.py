@@ -8,7 +8,7 @@ from config.reserved_words import reserved_words as reserved
 from config.tokens_final import *
 # from config.tokens_simple import *
 from config.tokens_re_final import *
-from config.grammars import * 
+from config.grammars_final import * 
 # from config.grammars_simple import * 
 
 class SCMCompiler:
@@ -68,6 +68,7 @@ class SCMCompiler:
                 print "[ERROR]:", e
                 return False
         # print "Retornando"
+        self.lexer.lineno = 1
         global Lexical
         Lexical = self.lexer
         return True

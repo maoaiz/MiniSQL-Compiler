@@ -52,7 +52,7 @@ reserved_words = {
     'INNER':'INNER','inner':'INNER','INOUT':'INOUT','inout':'INOUT','INSENSITIVE':'INSENSITIVE','insensitive':'INSENSITIVE','INSERT':'INSERT',
     'insert':'INSERT','INT':'INT','int':'INT','INT1':'INT1','int1':'INT1','INT2':'INT2','int2':'INT2','INT3':'INT3','int3':'INT3','INT4':'INT4',
     'int4':'INT4','INT8':'INT8','int8':'INT8','INTEGER':'INTEGER','integer':'INTEGER','INTERVAL':'INTERVAL','interval':'INTERVAL','INTO':'INTO',
-    'into':'INTO','IS':'IS','is':'IS','ITERATE':'ITERATE','iterate':'ITERATE', 'INDICATOR':'INDICATOR','indicator':'INDICATOR', 
+    'into':'INTO','IS':'IS','is':'IS','ITERATE':'ITERATE','iterate':'ITERATE', 'INDICATOR':'INDICATOR','indicator':'INDICATOR', 'identity': 'IDENTITY', 'IDENTITY': 'IDENTITY',
 
     # J
     'JOIN':'JOIN','join':'JOIN',

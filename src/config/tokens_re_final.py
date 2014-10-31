@@ -30,7 +30,8 @@ t_ignore = '\t\r'
 
 def t_NL(t):
     r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+    # t.lexer.lineno += t.value.count("\n")
+    t.lexer.lineno += 1
 
 def t_error(t):
     print "Lexical error: Illegal character '%s'" % t.value[0]
@@ -41,7 +42,7 @@ def t_WHITESPACE(t):
 
 def t_COMMENT(t):
     r'--(.)*?(\ )(.)*\n'
-    print "Se ignoro el comentario: '%s'" % t.value[:-2]
+    # print "Se ignoro el comentario: '%s'" % t.value[:-2]
     t.lexer.lineno += 1
 
 def t_COMMENT_OFFICIAL(t):
@@ -66,10 +67,7 @@ def t_NUMBER(t):
 def t_ID(t):
     r'[a-zA-Z_]\w*'
     # r'\$[^aeiou][.]?\#(\w)*'
-    t.type = reserved.get(t.value,'ID')
     t.value= t.value.lower()
+    t.type = reserved.get(t.value,'ID')
     return t
 
-# def t_NAME(t):
-#     r'\w+(_\d\w)*'
-#     return t
