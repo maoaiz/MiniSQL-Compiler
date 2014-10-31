@@ -27,17 +27,6 @@ VALUES ('amoros','admin','Valencia','Agustin','calle 22',1,'20-mayo-2014','20-ma
 
 UPDATE USUARIO
 SET apelUsuario = 'Jaramillo'
-WHERE nomUsuario = 'Agustin'or nomUsuario = 'robertin'
+WHERE nomUsuario = 'Agustin' or nomUsuario = 'robertin'
 AND fechaExpCarnet = '20-mayo-2014';
 
-int calcular(select * from USUARIO WHERE idUsuario='cesar' and idTipoUsuario=''admin)
-{
-	while(idTipoUsuario != NULL){
-		print (idTipoUsuario);
-	}
-}
-
-int calcular(int j)
-{ 
-    print ("hola bebe");
-}

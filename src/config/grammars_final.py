@@ -35,7 +35,11 @@ def p_schema_element_list(p):
 def p_schema_element(p):
     '''schema_element : base_table_def
         | view_def
-        | privilege_def'''
+        | privilege_def
+        | schema_element schema_element
+        | schema_element manipulative_statement
+        | manipulative_statement schema_element
+        | manipulative_statement'''
     pass
 
 #Creacion de una Tabla
@@ -68,7 +72,9 @@ def p_data_type(p):
       | VARCHAR LPAREN NUMBER RPAREN
       | INT
       | FLOAT
-      | DOUBLE''' 
+      | DOUBLE
+      | BIT
+      | SMALLDATETIME''' 
   pass
 
 def p_literal(p):
@@ -113,6 +119,7 @@ def p_search_condition(p):
 
 def p_predicate(p):
     '''predicate : comparison_predicate
+            | assignment_predicate
             | between_predicate
             | like_predicate
             | test_for_null
@@ -124,6 +131,10 @@ def p_predicate(p):
 def p_comparison_predicate(p):
     '''comparison_predicate : scalar_exp COMPARISON scalar_exp
                 | scalar_exp COMPARISON subquery'''
+    pass 
+
+def p_assignment_predicate(p):
+    '''assignment_predicate : assignment'''
     pass 
 
 def p_subquery(p):
@@ -173,12 +184,6 @@ def p_existence_test(p):
     pass
 
 
-
-
-
-
-
-
 def p_column_commalist(p):
   '''column_commalist : empty
         | column
@@ -212,7 +217,7 @@ def p_query_spec(p):
   'query_spec : SELECT opt_all_distinct FROM selection table_exp'
   pass
 
-def p_opt_with_check_option_2(p):
+def p_opt_with_check_option(p):
   '''opt_with_check_option : empty 
     | WITH CHECK OPTION'''
   pass
@@ -348,7 +353,8 @@ def p_grantee(p):
   pass
 
 def p_atom(p):
-  '''atom : QUOTE parameter_ref QUOTE
+  '''atom : STRING
+      | QUOTE parameter_ref QUOTE
       | NUMBER
       | QUOTE DATE1 QUOTE
       | QUOTE USER QUOTE'''
@@ -377,10 +383,18 @@ def p_manipulative_statement_1(p):
 
 #update
 def p_update_statement(p):
-  '''update_statement : UPDATE table SET assignment_commalist WHERE search_condition
-        | UPDATE table SET assignment_commalist WHERE assignment_commalist assign_cond
-        | UPDATE table SET assignment_commalist opt_where_clause'''
+  '''update_statement : UPDATE table SET assignment_commalist WHERE where_conditions'''
   pass
+
+def p_where_conditios(p):
+    '''where_conditions : assignment
+        | assignment OR where_conditions
+        | assignment AND where_conditions
+        | LPAREN where_conditions RPAREN
+        | where_conditions
+        '''
+    pass
+
 
 #drop
 def p_drop_table(p):
@@ -417,9 +431,8 @@ def p_insert_atom(p):
 #SELECT
 def p_select_statement(p):
   '''select_statement : SELECT opt_all_distinct selection INTO target_commalist table_exp
-    | SELECT TIMES FROM table WHERE assignment_commalist assign_cond
-    | SELECT TIMES FROM table SEMICOLON
-    | SELECT TIMES FROM table PLUSPLUS'''
+    | SELECT selection FROM table WHERE assignment_commalist assign_cond
+    | SELECT selection FROM table'''
   pass
 
 

@@ -22,11 +22,27 @@ t_AMPERSANT = r'\&'
 t_HASHTAG = r'\#'
 t_DOT = r'\.'
 t_DEQUAL = r'!='
-t_ISEQUAL = r'=='    
+# t_ISEQUAL = r'=='  
+t_COMPARISON = r'=='  
 t_MINUSMINUS = r'--'
 t_PLUSPLUS = r'\+\+'
 t_QUOTE = r'\'|\"'
 t_ignore = '\t\r'
+
+def t_STRING(t):
+    # r'(.)*?(\ )(.)*'
+    # r'\'([^"]|\\")*\''
+    r'\'[\w\ +-/\*]+\''
+    return t
+
+
+def t_DATE2(t):
+    r'date|DATE'
+    return t
+
+def t_DATE1(t):
+    r'\d*-([0]?[1-9]|[1][0-2])-([3][0-1]|[2][0-9]|[1][0-9]|[0]?[1-9])'
+    return t
 
 def t_NL(t):
     r'\n+'

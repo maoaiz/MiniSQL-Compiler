@@ -9,7 +9,7 @@ reserved_words = {
   
     # B
     'BEFORE':'BEFORE','before':'BEFORE','BETWEEN':'BETWEEN','between':'BETWEEN','BIGINT':'BIGINT','bigint':'BIGINT','BINARY':'BINARY',
-    'binary':'BINARY','BLOB':'BLOB','blob':'BLOB','BOTH':'BOTH','both':'BOTH','BY':'BY','by':'BY',
+    'binary':'BINARY','BLOB':'BLOB','blob':'BLOB','BOTH':'BOTH','both':'BOTH','BY':'BY','by':'BY', 'BIT' : 'BIT' ,'bit':'BIT' ,
 
     # C
     'CALL':'CALL','call':'CALL','CASCADE':'CASCADE','cascade':'CASCADE','CASE':'CASE','case':'CASE','CHANGE':'CHANGE','change':'CHANGE',
@@ -98,7 +98,8 @@ reserved_words = {
     'SPECIFIC':'SPECIFIC','specific':'SPECIFIC','SQL':'SQL','sql':'SQL','SQLEXCEPTION':'SQLEXCEPTION','sqlexception':'SQLEXCEPTION','SQLSTATE':'SQLSTATE','sqlstate':'SQLSTATE','SQLWARNING':'SQLWARNING',
     'sqlwarning':'SQLWARNING','SQL_BIG_RESULT':'SQL_BIG_RESULT','sql_big_result':'SQL_BIG_RESULT','SQL_CALC_FOUND_ROWS':'SQL_CALC_FOUND_ROWS',
     'sql_calc_found_rows':'SQL_CALC_FOUND_ROWS','SQL_SMALL_RESULT':'SQL_SMALL_RESULT','sql_small_result':'SQL_SMALL_RESULT','SSL':'SSL','ssl':'SSL',
-    'STARTING':'STARTING','starting':'STARTING','STRAIGHT_JOIN':'STRAIGHT_JOIN','straight_join':'STRAIGHT_JOIN', 'SOME':'SOME','some':'SOME',
+    'STARTING':'STARTING','starting':'STARTING','STRAIGHT_JOIN':'STRAIGHT_JOIN','straight_join':'STRAIGHT_JOIN', 'SOME':'SOME','some':'SOME', 'smalldatetime': 'SMALLDATETIME', 'SMALLDATETIME': 'SMALLDATETIME',
+    'string': "STRING", "STRING":"STRING",
 
     
 
