@@ -8,10 +8,94 @@ def p_sql_list(p):
     pass
 
 def p_sql(p):
-    '''sql : schema
+    '''sql : sql sql
+      | schema
       | manipulative_statement
-      | schema_element'''
+      | schema_element
+      | schema_func'''
     pass
+
+def p_schema_func(p):
+    '''schema_func : return_type ID LPAREN parameters RPAREN LBLOCK function_body RBLOCK'''
+    pass
+
+def p_function_body(p):
+    '''function_body : empty
+        | cicles
+        | instructions
+        | assignment'''
+    pass
+
+def p_cicles(p):
+    '''cicles : while
+        | for'''
+    pass
+
+def p_while(p):
+    '''while : WHILE LPAREN conditions RPAREN LBLOCK instructions RBLOCK'''
+    pass
+
+def p_for(p):
+    '''for : empty'''
+    pass
+
+def p_conditions(p):
+    '''conditions : arg operators arg
+        | conditions OR conditions
+        | conditions AND conditions
+        | LPAREN conditions RPAREN'''
+    pass
+
+def p_arg(p):
+    '''arg : ID
+        | NULL'''
+    pass
+
+
+def p_operators(p):
+    '''operators : LESS
+        | LESSEQUAL
+        | GREATER
+        | GREATEREQUAL
+        | DEQUAL
+        | COMPARISON'''
+    pass
+
+
+def p_instructions(p):
+    '''instructions : print'''
+    pass
+
+def p_print(p):
+    '''print : PRINT LPAREN QUOTE STRING QUOTE RPAREN SEMICOLON
+        | PRINT LPAREN  ID  RPAREN SEMICOLON'''
+    pass
+
+
+def p_parameters(p):
+    '''parameters : manipulative_statement
+        | manipulative_statement SEMICOLON
+        | arguments'''
+    pass
+
+def p_arguments(p):
+    '''arguments : return_type ID
+        | return_type ID COMMA arguments'''
+    pass
+
+
+def p_return_type(p):
+    '''return_type : CHAR
+        | IDENTITY
+        | VARCHAR
+        | NUMBER
+        | INT
+        | FLOAT
+        | DOUBLE
+        | BIT
+        | SMALLDATETIME'''
+    pass
+
 
 def p_schema(p):
     'schema : CREATE SCHEMA AUTHORIZATION user opt_schema_element_list'
@@ -35,12 +119,16 @@ def p_schema_element_list(p):
 def p_schema_element(p):
     '''schema_element : base_table_def
         | view_def
-        | privilege_def
-        | schema_element schema_element
-        | schema_element manipulative_statement
-        | manipulative_statement schema_element
-        | manipulative_statement'''
+        | privilege_def'''
     pass
+
+
+        # | schema_element schema_element
+        # | schema_element manipulative_statement
+        # | manipulative_statement schema_element
+        # | manipulative_statement
+
+
 
 #Creacion de una Tabla
 def p_base_table_def(p):
@@ -489,12 +577,12 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    if p is not None:
+    if p:
         print ("[Sintax Error] No se esperaba el simbolo '{}' en la linea {}".format(p.value, p.lineno))
     else:
         from src.SCM import Lexical, Parser, yacc
         while 1:
-          tok = yacc.token()             # Get the next token
-          if not tok or tok.type == 'RBRACE': break
+            tok = yacc.token()             # Get the next token
+            if not tok or tok.type == 'RBRACE':
+                break
         yacc.restart()
-        print ("\nERROR SINTACTICO EN LA LINEA: " + str(Lexical.lineno))

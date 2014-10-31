@@ -30,3 +30,11 @@ SET apelUsuario = 'Jaramillo'
 WHERE nomUsuario = 'Agustin' or nomUsuario = 'robertin'
 AND fechaExpCarnet = '20-mayo-2014';
 
+varchar mifuncion(int a, varchar b){
+	print ("'hola bebe'");
+}
+varchar mifuncion(select * from USUARIO WHERE idUsuario='cesar' and idTipoUsuario='admin'){
+	while(idTipoUsuario != NULL){
+		print(idTipoUsuario);
+	}
+}

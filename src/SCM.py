@@ -6,10 +6,8 @@ Lexical = None
 Parser = None
 from config.reserved_words import reserved_words as reserved
 from config.tokens_final import *
-# from config.tokens_simple import *
 from config.tokens_re_final import *
 from config.grammars_final import * 
-# from config.grammars_simple import * 
 
 class SCMCompiler:
     data = None
@@ -26,7 +24,7 @@ class SCMCompiler:
         else:
             print "\nLexical analysis finished"
         if not self.eval_parser():
-            print "Esto se jodio"
+            print "[SYNTAX ERROR]"
         else:
             print "\nSintax analysis finished"
 
